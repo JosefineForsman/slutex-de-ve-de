@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Monoton&family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/90fae742c0.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DE-VE-DE</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script defer type="module" src="js/scipt.js"></script>
+  </head>
+  <body>
+    <figure>
+      <header>
+        <h1>DE-VE-DE.</h1>
+      </header>
+      <nav>
+        <input
+          type="text"
+          name=""
+          id="search"
+          placeholder="Search for title: "
+        />
+        <button id="search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </nav>
+    </figure>
+    <content>
+      <article>
+        <label for="title">Movie - title</label>
+        <input id="title" type="text" /><br />
+        <label for="genre">Movie - genre</label>
+        <input id="genre" type="text" /><br />
+        <label for="release-date">Movie - release date: </label>
+        <input id="release-date" type="date" /><br />
+        <button id="save-movie">Save movie</button>
+        <button class="showWatchedMovies">Watched movies</button>
+        <button class="showMovies">Movies i want to watch</button>
+
+        <content class="sliderShowMovies">
+          <h2>MOVIES I WANT TO WATCH:</h2>
+          <article id="movieWant">
+            <aside id="listofmovies"></aside>
+            <button onClick="window.location.reload()" class="homePage">
+              Go back
+            </button>
+          </article>
+        </content>
+        <content class="sliderShowWatchedMovies">
+          <h2>MOVIES I HAVE WATCHED:</h2>
+          <article id="movieWatch">
+            <aside id="watchedMovies"></aside>
+          </article>
+          <!-- <button onClick="window.location.reload()" class="homePage">
+            Go back
+          </button> -->
+        </content>
+      </article>
+    </content>
+
+    <main></main>
+  </body>
+</html>
