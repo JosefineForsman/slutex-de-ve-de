@@ -1,8 +1,9 @@
  // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
- import { removeMovie, clearInputFields, updateUi, markTitle } from "./display.js";
- import { watchedMoviesSlider, movieSlider } from "./modules/sliders.js";
+ import { removeMovie, clearInputFields, updateUi, hideMain } from "./display.js";
+ import {  btnWatchedMovies, sliderGetBack } from "./modules/sliders.js";
+ import { searchClickFunction, addMovie } from "./modules/clicks.js";
 
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,53 +21,21 @@
  // Initialize Firebase
  const app = initializeApp(firebaseConfig);
  const db = getFirestore(app);
-
- const inputTitle = document.querySelector('#title');
- const inputGenre = document.querySelector('#genre');
- const inputReleaseDate = document.querySelector('#release-date');
- const saveMovie = document.querySelector('#save-movie');
- const showMovies = document.querySelector(".showMovies");
- const showWatchedMovies = document.querySelector(".showWatchedMovies");
- const search = document.querySelector('#search');
- const searchBtn = document.querySelector('#search-btn');
  
- searchBtn.addEventListener('click', () =>{
-     let userSearch = search.value;
-     console.log(userSearch);
-     manageTitle(userSearch);
-
-    //  checkIfUsernameExists(movie);
-
- })
-  //When the play again button is pressed, the slider moves back to the correct index again.
-showMovies.addEventListener("click", () => {
-    movieSlider();
-});
-
-//When the play again button is pressed, the slider moves back to the correct index again.
-showWatchedMovies.addEventListener("click",() => {
-      watchedMoviesSlider();
-    } );
-
+ // Variable that changes depending on users-input.
  let movie = {
     title: '',
     genre: '',
     releaseDate: ''
  } 
 
- function addMovie(){
-    saveMovie.addEventListener('click', ()=>{
-        movie.title = inputTitle.value;
-        movie.genre = inputGenre.value;
-        movie.releaseDate = inputReleaseDate.value;
-        saveToDatabase(movie);
-        console.log(movie);
-        getMovie(movie);
-    })
-    
-}
-addMovie();
+ // Different functions. 
+ searchClickFunction();
+ sliderGetBack(); 
+ btnWatchedMovies();
+ addMovie();
 
+// Saves user-input to database 'movies'.
 async function saveToDatabase(movie){
     try{
         await addDoc(collection(db, 'movies'), movie);
@@ -77,46 +46,7 @@ async function saveToDatabase(movie){
     
 }
 
-async function getMovie(){
-    const movie = await getDocs(collection(db,'movies'));
-    const showMovie = document.querySelector('#listofmovies');
-    updateUi(showMovie);
-    
-    // document.queryselector `#${li.id}`.style.display="none"; i min remove funktion.
-    movie.forEach((li)=>{
-        console.log(li.data());
-        const el = `
-        <article id="movieWant">
-        <li id="searchPrint" movie-id="${li.id}"><i class="fa-solid fa-eye"></i>
-        Title: ${li.data().title} ||
-        Genre: ${li.data().genre} ||<br>
-        Date release: ${li.data().releaseDate}
-        </li>
-        </article>`
-        showMovie.insertAdjacentHTML('beforeend', el);
-    })
-    removeMovie(movie);
-}
-
-async function showDeletedMovie(){
-    const deletedMovies = await getDocs(collection(db, 'watched-movies'))
-    const watchedMovie = document.querySelector('#movieWatch');
-    watchedMovie.innerText='';
-    
-    deletedMovies.forEach((li)=>{
-        const deletedMovie= `
-        <article id="watchedMovies">
-        
-        <li movie-id="${li.id}"><i class="fa-sharp fa-solid fa-circle-check"></i>
-        Title: ${li.data().title} ||
-        Genre: ${li.data().genre} ||<br>
-        Date release: ${li.data().releaseDate}
-        </article>`
-        watchedMovie.insertAdjacentHTML('beforeend', deletedMovie);
-        
-    })
-    
-}
+// Removes the object 'movie' from database, and adds it in a new called 'watched-movies'.
 async function removeMovieFromDatabase(deletedId){
     try{
         await deleteDoc(doc(db, 'movies', deletedId))
@@ -127,63 +57,92 @@ async function removeMovieFromDatabase(deletedId){
     }
 }
 
+// If a title is in the data-base 'movies' 
 async function checkIfTitleExists(userSearch) {
     try {
         const titleQuery = query(collection(db, 'movies'), where('title', '==', userSearch));
         const result = await getDocs(titleQuery);
         let titleResult = {};
         console.log(titleResult);
-
+        
         result.forEach((username) => {
             titleResult = username;
         });
-
+        
         return titleResult;
     } catch (error) {
         console.log(error);
     }
 }
-async function manageTitle(userSearch) {
+// Output from user, to a "i want to watch this movie list".
+async function getMovie(){
+    const movie = await getDocs(collection(db,'movies'));
+    const showMovie = document.querySelector('#listofmovies');
+    updateUi(showMovie);
+    
+    movie.forEach((li)=>{
+        console.log(li.data());
+        const el = `
+        <article id="movieWant">
+            <li id="searchPrint" movie-id="${li.id}"><i class="fa-solid fa-eye"></i>
+                Title: ${li.data().title} ||
+                Genre: ${li.data().genre} ||<br>
+                Date release: ${li.data().releaseDate}
+            </li>
+        </article>`
+        showMovie.insertAdjacentHTML('beforeend', el);
+    })
+    removeMovie(movie);
+}
 
+// Output from user, to a "i have watched this movie list".
+async function showDeletedMovie(){
+    const deletedMovies = await getDocs(collection(db, 'watched-movies'))
+    const watchedMovie = document.querySelector('#movieWatch');
+    watchedMovie.innerText='';
+    
+    deletedMovies.forEach((li)=>{
+        const deletedMovie= `
+        <article id="watchedMovies">
+            <li movie-id="${li.id}"><i class="fa-sharp fa-solid fa-circle-check"></i>
+                Title: ${li.data().title} ||
+                Genre: ${li.data().genre} ||<br>
+                Date release: ${li.data().releaseDate}
+            </li>
+        </article>`
+        watchedMovie.insertAdjacentHTML('beforeend', deletedMovie);
+        
+    })  
+}
+
+async function manageTitle(userSearch) {
     const userInput = await checkIfTitleExists(userSearch);
     console.log(userInput);
     const userTitle = userInput.id;
     const article = document.querySelector('#searchInfo')
     
     if (userTitle) {
-        markTitle();
+        hideMain();
         userInput.innerText='';
-        
-
+    
             const input= `
             <article id="searchInfo">
-            <h1>You searched for the movie: " ${userInput.data().title} ", your movie is saved in your favorite list! </h1><br>
-            Title: ${userInput.data().title} ||
-            Genre: ${userInput.data().genre} ||<br>
-            Date release: ${userInput.data().releaseDate}
-            </article><br>
+                <h1>You searched for the movie: " ${userInput.data().title} ", the movie is saved in your favorite list! </h1><br>
+                    Title: ${userInput.data().title} ||
+                    Genre: ${userInput.data().genre} ||<br>
+                    Date release: ${userInput.data().releaseDate}
+                </article><br>
             <button onClick="window.location.reload()"> GO BACK</button>`
             article.insertAdjacentHTML('beforeend', input);
-
-
-       console.log(userInput.data().title);
-        console.log(userInput.data().genre);
-        console.log(userInput.data().releaseDate);
-       // alert('title exist');
-
-        
+  
     } else {
-        // Spara highscore som en nytt dokument
-        markTitle();
-        const wrongInput =` <article id="searchInfo">
-        <h1>The movie you searched for could not be found in your favorite list! </h1><br>
-    
-        </article><br>
-        <button onClick="window.location.reload()"> GO BACK</button>`
-        article.insertAdjacentHTML('beforeend', wrongInput);
-        
+        hideMain();
+        const wrongInput =` 
+        <article id="searchInfo">
+            <h1>The movie you searched for could not be found in your favorite list! </h1><br>
+        </article><br> <button onClick="window.location.reload()"> GO BACK</button>`
+            article.insertAdjacentHTML('beforeend', wrongInput);  
     }
 }
 
-
-export { showDeletedMovie,removeMovieFromDatabase, inputGenre, inputTitle, inputReleaseDate, getMovie}
+export { showDeletedMovie,removeMovieFromDatabase, getMovie, manageTitle, saveToDatabase, movie}
