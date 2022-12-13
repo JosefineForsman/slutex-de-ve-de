@@ -130,10 +130,10 @@ async function manageTitle(userSearch) {
                 <h1>You searched for the movie: " ${userInput.data().title} ", the movie is saved in your favorite list! </h1><br>
                     Title: ${userInput.data().title} ||
                     Genre: ${userInput.data().genre} ||<br>
-                    Date release: ${userInput.data().releaseDate}
-                </article><br>
-            <button onClick="window.location.reload()"> GO BACK</button>`
-            article.insertAdjacentHTML('beforeend', input);
+                    Date release: ${userInput.data().releaseDate}<br>
+                    <button onClick="window.location.reload()"> GO BACK</button>
+                </article><br>`
+            article.insertAdjacentHTML('beforebegin', input);
   
     } else {
         hideMain();
