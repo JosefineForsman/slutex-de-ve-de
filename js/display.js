@@ -1,5 +1,4 @@
 // In this module i have collected the functions that makes visible differences.
-
 import { removeMovieFromDatabase, showDeletedMovie} from "./scipt.js"
 import { inputGenre, inputReleaseDate, inputTitle} from "./modules/clicks.js"
 

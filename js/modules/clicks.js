@@ -1,7 +1,8 @@
 // In this module I have put my clicks, since I have a few, it will be easier for me to find them.
 import { manageTitle, saveToDatabase, movie, getMovie } from "../scipt.js"
+import { movieSlider, watchedMoviesSlider } from "./sliders.js";
 
-// Variables to the elements i want to use in my click-function.
+// Variables to the elements i want to use in my click-functions.
 const search = document.querySelector('#search');
 const searchBtn = document.querySelector('#search-btn');
 const saveMovie = document.querySelector('#save-movie');
@@ -29,4 +30,19 @@ function addMovie(){
         getMovie(movie);
     })  
 }
-export { searchClickFunction, addMovie, inputGenre, inputTitle, inputReleaseDate }
+ //When the "movies i want to watch" button is pressed, the slider moves back to the correct index again.
+ function sliderGetBack(){
+    const showMovies = document.querySelector(".showMovies");
+    showMovies.addEventListener("click", () => {
+          movieSlider();
+          });
+      }
+
+//When the "watched movie" button is pressed, the slider moves back to the correct index again.
+function btnWatchedMovies(){
+    const showWatchedMovies = document.querySelector(".showWatchedMovies");
+      showWatchedMovies.addEventListener("click",() => {
+            watchedMoviesSlider();
+          } );
+        }
+export { searchClickFunction, addMovie, inputGenre, inputTitle, inputReleaseDate, sliderGetBack, btnWatchedMovies }

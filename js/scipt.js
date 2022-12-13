@@ -2,8 +2,7 @@
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
  import { removeMovie, clearInputFields, updateUi, hideMain } from "./display.js";
- import {  btnWatchedMovies, sliderGetBack } from "./modules/sliders.js";
- import { searchClickFunction, addMovie } from "./modules/clicks.js";
+ import { searchClickFunction, addMovie, btnWatchedMovies, sliderGetBack } from "./modules/clicks.js";
 
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
@@ -115,6 +114,7 @@ async function showDeletedMovie(){
     })  
 }
 
+// If the title matches a movie in the database, this is the different outcome.
 async function manageTitle(userSearch) {
     const userInput = await checkIfTitleExists(userSearch);
     console.log(userInput);
