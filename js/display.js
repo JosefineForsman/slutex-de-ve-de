@@ -13,7 +13,7 @@ function removeMovie(movie){
             console.log(deletedId);
             x.style.display = 'none';
             showDeletedMovie();
-            removeMovieFromDatabase(deletedId, movie)       
+            removeMovieFromDatabase(deletedId, movie);       
         })
     })
 }
@@ -24,11 +24,6 @@ function clearInputFields(){
     inputReleaseDate.value = '';
 }
 
-//Clear the list so it's only one of each movie-info, not duplicate.
-function updateUi(showMovie){
-    showMovie.innerText=''; 
-}
-
 // Marks the title if the title exsists in the data-base.
 function hideMain() {
     const main = document.querySelector('main');
@@ -36,4 +31,4 @@ function hideMain() {
     
   }
 
-export {removeMovie, clearInputFields, updateUi, hideMain }
+export {removeMovie, clearInputFields, hideMain }

@@ -21,7 +21,7 @@
   <body>
     <figure>
       <header>
-        <h1>DE-VE-DE.</h1>
+        <h1>DE-VE-DE</h1>
       </header>
       <nav>
         <input
@@ -36,36 +36,39 @@
       </nav>
     </figure>
     <main>
-      <article>
-        <label for="title">Movie - title</label>
-        <input id="title" type="text" placeholder="Enter title here.." /><br />
-        <label for="genre">Movie - genre</label>
-        <input id="genre" type="text" placeholder="Enter genre here.." /><br />
-        <label for="release-date">Movie - release date: </label>
+      <article id="form">
+        <h2>ADD A MOVIE TO YOUR FAVORITE LIST:</h2>
+        <br />
+        <input id="title" type="text" placeholder="MOVIE TITLE: " /><br />
+        <input id="genre" type="text" placeholder="GENRE: " /><br />
+        <label for="release-date">RELEASE DATE: </label>
         <input id="release-date" type="date" /><br />
-        <button id="save-movie">Save movie</button>
+        <button id="save-movie">
+          Save as favorite <i class="fa-solid fa-heart"></i>
+        </button>
+      </article>
+      <div>
         <button class="showWatchedMovies">Watched movies</button>
-        <button class="showMovies">Movies i want to watch</button>
+        <button class="showMovies">
+          Favorites <i class="fa-solid fa-heart"></i>
+        </button>
+      </div>
 
-        <content class="sliderShowMovies">
-          <h2>MOVIES I WANT TO WATCH:</h2>
-          <article id="movieWant">
-            <aside id="listofmovies"></aside>
-            <button onClick="window.location.reload()" class="homePage">
-              Go back
-            </button>
-          </article>
-        </content>
-        <content class="sliderShowWatchedMovies">
-          <h2>MOVIES I HAVE WATCHED:</h2>
-          <article id="movieWatch">
-            <aside id="watchedMovies"></aside>
-          </article>
-          <!-- <button onClick="window.location.reload()" class="homePage">
+      <content class="sliderShowMovies">
+        <h2>MOVIES I WANT TO WATCH:</h2>
+        <article id="movieWant">
+          <aside id="listofmovies"></aside>
+        </article>
+      </content>
+      <content class="sliderShowWatchedMovies">
+        <h2>MOVIES I HAVE WATCHED:</h2>
+        <article id="movieWatch">
+          <aside id="watchedMovies"></aside>
+        </article>
+        <!-- <button onClick="window.location.reload()" class="homePage">
             Go back
           </button> -->
-        </content>
-      </article>
+      </content>
     </main>
     <article id="searchInfo"></article>
   </body>

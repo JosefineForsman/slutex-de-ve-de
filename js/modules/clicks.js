@@ -1,5 +1,5 @@
 // In this module I have put my clicks, since I have a few, it will be easier for me to find them.
-import { manageTitle, saveToDatabase, movie, getMovie } from "../scipt.js"
+import { manageTitle, saveToDatabase, movie, getMovie, showDeletedMovie } from "../scipt.js"
 import { movieSlider, watchedMoviesSlider } from "./sliders.js";
 
 // Variables to the elements i want to use in my click-functions.

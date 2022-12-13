@@ -1,7 +1,7 @@
  // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
- import { removeMovie, clearInputFields, updateUi, hideMain } from "./display.js";
+ import { removeMovie, clearInputFields, hideMain } from "./display.js";
  import { searchClickFunction, addMovie, btnWatchedMovies, sliderGetBack } from "./modules/clicks.js";
 
  // TODO: Add SDKs for Firebase products that you want to use
@@ -77,15 +77,15 @@ async function checkIfTitleExists(userSearch) {
 async function getMovie(){
     const movie = await getDocs(collection(db,'movies'));
     const showMovie = document.querySelector('#listofmovies');
-    updateUi(showMovie);
+    showMovie.innerText='';
     
     movie.forEach((li)=>{
         console.log(li.data());
         const el = `
         <article id="movieWant">
-            <li id="searchPrint" movie-id="${li.id}"><i class="fa-solid fa-eye"></i>
-                Title: ${li.data().title} ||
-                Genre: ${li.data().genre} ||<br>
+            <li id="searchPrint" movie-id="${li.id}">
+                Title: ${li.data().title}<br>
+                Genre: ${li.data().genre}<br>
                 Date release: ${li.data().releaseDate}
             </li>
         </article>`
@@ -103,9 +103,9 @@ async function showDeletedMovie(){
     deletedMovies.forEach((li)=>{
         const deletedMovie= `
         <article id="watchedMovies">
-            <li movie-id="${li.id}"><i class="fa-sharp fa-solid fa-circle-check"></i>
-                Title: ${li.data().title} ||
-                Genre: ${li.data().genre} ||<br>
+            <li movie-id="${li.id}">
+                Title: ${li.data().title}<br>
+                Genre: ${li.data().genre}<br>
                 Date release: ${li.data().releaseDate}
             </li>
         </article>`
@@ -123,20 +123,20 @@ async function manageTitle(userSearch) {
     
     if (userTitle) {
         hideMain();
-        userInput.innerText='';
-    
+        article.innerText='';
+
             const input= `
             <article id="searchInfo">
                 <h1>You searched for the movie: " ${userInput.data().title} ", the movie is saved in your favorite list! </h1><br>
-                    Title: ${userInput.data().title} ||
-                    Genre: ${userInput.data().genre} ||<br>
+                    Title: ${userInput.data().title}<br>
+                    Genre: ${userInput.data().genre}<br>
                     Date release: ${userInput.data().releaseDate}<br>
-                    <button onClick="window.location.reload()"> GO BACK</button>
                 </article><br>`
             article.insertAdjacentHTML('beforebegin', input);
   
     } else {
         hideMain();
+        article.innerText='';
         const wrongInput =` 
         <article id="searchInfo">
             <h1>The movie you searched for could not be found in your favorite list! </h1><br>
