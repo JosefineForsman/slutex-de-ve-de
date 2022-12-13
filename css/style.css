@@ -68,7 +68,6 @@ article{
     width: 10rem;
     border:none;
     background: #F0F0F3;
-    /* position: relative; */
     display: inline-block;
     padding: 10px 20px;
     text-decoration: none;
@@ -83,7 +82,6 @@ button{
     width: 10rem;
     border:none;
     background: #F0F0F3;
-    /* position: relative; */
     display: inline-block;
     padding: 10px 20px;
     text-decoration: none;
@@ -103,14 +101,29 @@ button{
 #movieWatch{
     display: flex;
     align-items: flex-start;
+    overflow: scroll;
 }
+/* #searchPrint{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+} */
+#movieWant{
+    display: flex;
+    align-items: flex-start;
+    overflow: scroll;
+}
+
 #listofmovies{
     text-transform: uppercase;
     margin-bottom: 2rem;
     align-items: flex-start;
+    justify-content: flex-start;
+   
 } 
 #watchedMovies{
     text-transform: uppercase;
+    
 }
 #search-btn{
     width: 1rem;
@@ -118,6 +131,11 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+#searchResult{
+    background-color: #3a2c0f;
+    width: 400px;
+    height: 200px;
 }
 
 section{
@@ -128,7 +146,6 @@ section{
     height: 20rem;
     box-shadow: 0 0 4px 3px rgb(140, 138, 138);
     text-align: center;
-    /* padding:1rem; */
     margin-bottom: 1em;
     color:black;
 }
@@ -155,7 +172,7 @@ main{
     color: rgb(102, 156, 243);
 }
 
-/* ━━━━━━━━━━| SLIDER GAME OVER|━━━━━━━━━━ */
+/* ━━━━━━━━━━| Movies i want to watch |━━━━━━━━━━ */
 .sliderShowMovies {
     position: absolute;
     top: 2rem;
@@ -181,7 +198,7 @@ main{
     -webkit-text-fill-color: transparent;
   }
  
-  /* ━━━━━━━━━━| SLIDER WIN |━━━━━━━━━━ */
+  /* ━━━━━━━━━━| Watched movies |━━━━━━━━━━ */
   .sliderShowWatchedMovies {
     position: absolute;
     top: 2rem;

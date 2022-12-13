@@ -16,13 +16,24 @@ function removeMovie(movie){
         
     })
 }
+
+// Clear the input-fields from letters.
 function clearInputFields(){
     inputTitle.value = '';
     inputGenre.value = '';
     inputReleaseDate.value = '';
 }
+
+//Clear the list so it's only one of each movie-info, not duplicate.
 function updateUi(showMovie){
-    showMovie.innerText=''; // lägga denna i display och göra till en funktion.
+    showMovie.innerText=''; 
 }
 
-export {removeMovie, clearInputFields, updateUi }
+// Marks the title if the title exsists in the data-base.
+function markTitle() {
+    const main = document.querySelector('main');
+    main.style.display ='none';
+    
+  }
+
+export {removeMovie, clearInputFields, updateUi, markTitle }

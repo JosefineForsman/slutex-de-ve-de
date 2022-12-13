@@ -1,8 +1,9 @@
  // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
- import { removeMovie, clearInputFields, updateUi } from "./display.js";
+ import { removeMovie, clearInputFields, updateUi, markTitle } from "./display.js";
  import { watchedMoviesSlider, movieSlider } from "./modules/sliders.js";
+
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -86,7 +87,7 @@ async function getMovie(){
         console.log(li.data());
         const el = `
         <article id="movieWant">
-        <li movie-id="${li.id}"><i class="fa-solid fa-eye"></i>
+        <li id="searchPrint" movie-id="${li.id}"><i class="fa-solid fa-eye"></i>
         Title: ${li.data().title} ||
         Genre: ${li.data().genre} ||<br>
         Date release: ${li.data().releaseDate}
@@ -126,12 +127,8 @@ async function removeMovieFromDatabase(deletedId){
     }
 }
 
-// hur kollar jag två databaser samtidigt? 
 async function checkIfTitleExists(userSearch) {
     try {
-        // Här bygger vi upp en fråga till vår databas, först bestämmer vi i vilken collection vi vill söka i collection(db, 'highscore')
-        // Sen vad vi ska söka efter och detta fall efter ett specifikt användarnamn where('username', '==', stats.username);
-        // Till sist utför vi frågan mot databasen await getDocs(usernameQuery);
         const titleQuery = query(collection(db, 'movies'), where('title', '==', userSearch));
         const result = await getDocs(titleQuery);
         let titleResult = {};
@@ -148,28 +145,44 @@ async function checkIfTitleExists(userSearch) {
 }
 async function manageTitle(userSearch) {
 
-    const username = await checkIfTitleExists(userSearch);
-    console.log(username);
-    // console.log('Användare: ', username.data());
-    // console.log('Id: ', username.id);
-    const userTitle = username.id;
+    const userInput = await checkIfTitleExists(userSearch);
+    console.log(userInput);
+    const userTitle = userInput.id;
+    const article = document.querySelector('#searchInfo')
     
     if (userTitle) {
-        // Uppdatera användaren med ny score
-    //  username.forEach((info)=>{
-    //     const el =`
-    //     <p>Title: ${li.data().title} ||
-    //     Genre: ${li.data().genre} ||<br>
-    //     Date release: ${li.data().releaseDate} </p>
-    //     `
-    //  })   
-        console.log(username.data().title);
-        alert('title exist')
+        markTitle();
+        userInput.innerText='';
+        
+
+            const input= `
+            <article id="searchInfo">
+            <h1>You searched for the movie: " ${userInput.data().title} ", your movie is saved in your favorite list! </h1><br>
+            Title: ${userInput.data().title} ||
+            Genre: ${userInput.data().genre} ||<br>
+            Date release: ${userInput.data().releaseDate}
+            </article><br>
+            <button onClick="window.location.reload()"> GO BACK</button>`
+            article.insertAdjacentHTML('beforeend', input);
+
+
+       console.log(userInput.data().title);
+        console.log(userInput.data().genre);
+        console.log(userInput.data().releaseDate);
+       // alert('title exist');
+
+        
     } else {
         // Spara highscore som en nytt dokument
-        alert('title do not exist');
-    }
+        markTitle();
+        const wrongInput =` <article id="searchInfo">
+        <h1>The movie you searched for could not be found in your favorite list! </h1><br>
     
+        </article><br>
+        <button onClick="window.location.reload()"> GO BACK</button>`
+        article.insertAdjacentHTML('beforeend', wrongInput);
+        
+    }
 }
 
 
