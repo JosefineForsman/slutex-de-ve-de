@@ -1,4 +1,5 @@
 // In this module I have put my clicks, since I have a few, it will be easier for me to find them.
+import { removeMovie } from "../display.js";
 import { manageTitle, saveToDatabase, movie, getMovie, showDeletedMovie } from "../scipt.js"
 import { movieSlider, watchedMoviesSlider } from "./sliders.js";
 
@@ -27,22 +28,23 @@ function addMovie(){
         movie.releaseDate = inputReleaseDate.value;
         saveToDatabase(movie);
         console.log(movie);
-        getMovie(movie);
     })  
 }
- //When the "movies i want to watch" button is pressed, the slider moves back to the correct index again.
- function sliderGetBack(){
+//When the "movies i want to watch" button is pressed, the slider moves back to the correct index again.
+function sliderGetBack(){
     const showMovies = document.querySelector(".showMovies");
     showMovies.addEventListener("click", () => {
-          movieSlider();
-          });
-      }
+        movieSlider();
+        getMovie(movie);
+    });
+}
 
 //When the "watched movie" button is pressed, the slider moves back to the correct index again.
 function btnWatchedMovies(){
     const showWatchedMovies = document.querySelector(".showWatchedMovies");
-      showWatchedMovies.addEventListener("click",() => {
-            watchedMoviesSlider();
+    showWatchedMovies.addEventListener("click",() => {
+        watchedMoviesSlider();
+        showDeletedMovie();
           } );
         }
 export { searchClickFunction, addMovie, inputGenre, inputTitle, inputReleaseDate, sliderGetBack, btnWatchedMovies }

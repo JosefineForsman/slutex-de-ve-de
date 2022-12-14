@@ -113,6 +113,7 @@ button{
     border-radius: 40px;
     margin-bottom: 1rem;
     filter:drop-shadow(8px 8px 5px black)
+    
 }
 button:hover{
     color:rgb(0, 0, 0);
@@ -127,14 +128,15 @@ button:hover{
     cursor:pointer;
 }
 #movieWatch{
-    display: flex;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
     align-items: flex-start;
-    overflow: scroll;
+    justify-content: flex-start;
+
 }
 #movieWant{
     display: flex;
     align-items: flex-start;
-    overflow: scroll;
 }
 
 #listofmovies{
@@ -142,14 +144,16 @@ button:hover{
     margin-bottom: 2rem;
     align-items: flex-start;
     justify-content: flex-start;
-   
+    
 } 
 #watchedMovies{
     text-transform: uppercase;
     border-radius: -15px -15px -15px -15px;
     background: rgb(198,180,122);
     background: linear-gradient(90deg, rgba(198,180,122,1) 0%, rgba(254,235,195,0.486453956582633) 48%, rgba(198,180,122,1) 100%);
-    color:black;  
+    color:color;
+    max-width: 15rem;
+    
 }
 #search-btn{
     /* position: relative; */
@@ -176,10 +180,9 @@ section{
 }
 li{
     list-style: none;
-    border: dotted 5px;
+    border: dotted 7px;
     border-color: #ffecb3;
-    padding: 1rem;
-
+    padding: 1rem; 
 }
 main{
     display:flex;
@@ -194,9 +197,6 @@ div{
 }
 #titleInfo{
     font-size: 22px;
-}
-.fa-sharp{
-    color:rgb(101, 176, 101);
 }
 
 .fa-eye{
@@ -221,15 +221,16 @@ div{
     transform: scaleY(0);
     transition: all 0.3s ease;
     z-index: 1;
-  }
-  .sliderShowMovies.show {
+}
+.sliderShowMovies.show {
     transform: translateX(0);
     background: rgb(115,5,5);
     background: radial-gradient(circle, rgba(115,5,5,1) 0%, rgba(42,0,0,1) 100%);
     color:white;
     border: 4px solid #f0f0f32d;
-  }
-  .sliderShowMovies h2{
+    overflow: scroll;
+}
+.sliderShowMovies h2{
     background: linear-gradient(to bottom, #cfc09f 22%,#634f2c 24%, #cfc09f 26%, #cfc09f 27%,#ffecb3 40%,#3a2c0f 78%); 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -257,16 +258,28 @@ div{
     background: radial-gradient(circle, rgba(115,5,5,1) 0%, rgba(42,0,0,1) 100%);
     color: white;
     border: 4px solid #f0f0f32d;
+    overflow: scroll;
   }
   .sliderShowWatchedMovies h2{
     background: linear-gradient(to bottom, #cfc09f 22%,#634f2c 24%, #cfc09f 26%, #cfc09f 27%,#ffecb3 40%,#3a2c0f 78%); 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  #searchInfo{
+  #searchInfo {
     text-transform: uppercase;
     color:white;
     display: flex;
     justify-content: center;
     align-content: center;
+    flex-direction: column;
+    gap:2rem;
+
   }
+  /* #searchInfo.show{
+    text-transform: uppercase;
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+  } */
