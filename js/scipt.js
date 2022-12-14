@@ -64,7 +64,7 @@ async function removeMovieFromDatabase(deletedId){
 // If a title is in the data-base 'movies' 
 async function checkIfTitleExists(userSearch) {
     try {
-        const titleQuery = query(collection(db, 'movies'), where('title', '==', userSearch));
+        const titleQuery = query(collection(db, 'watched-movies'), where('title', '==', userSearch)); // gör en likadan om databas 1.
         const result = await getDocs(titleQuery);
         let titleResult = {};
         console.log(titleResult);
@@ -143,7 +143,7 @@ async function manageTitle(userSearch) {
 
             const input= `
             <article id="searchInfo">
-                <h1>You searched for the movie: " ${userInput.data().title} ", the movie is saved in your favorite list! </h1><br>
+                <h1>You searched for the movie: " ${userInput.data().title} ", you have already watched this movie. </h1><br>
                     Title: ${userInput.data().title}<br>
                     Genre: ${userInput.data().genre}<br>
                     Date release: ${userInput.data().releaseDate}<br>
