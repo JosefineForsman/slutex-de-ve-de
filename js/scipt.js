@@ -38,11 +38,7 @@
 async function saveToDatabase(movie){
     try{
         await addDoc(collection(db, 'movies'), movie);
-        // const sameMovie = query(collection(db, 'movies'), where('movie', '==', inputTitle.value));
-        // console.log(inputTitle.value, movie.title);
-        //     if(sameMovie){
-        //         alert('This movie already exsists! Try with another one.')
-        //     }
+
     } catch(error){
         console.log('Error', error);
     }
@@ -51,10 +47,12 @@ async function saveToDatabase(movie){
 }
 
 // Removes the object 'movie' from database, and adds it in a new called 'watched-movies'.
-async function removeMovieFromDatabase(deletedId){
+async function removeMovieFromDatabase(deletedId, movieText){
     try{
         await deleteDoc(doc(db, 'movies', deletedId))
-        await addDoc(collection(db, 'watched-movies'), movie);
+        await addDoc(collection(db, 'watched-movies'), {
+            movie: movieText
+        });
     
     } catch(error){
         console.log(error)
@@ -69,8 +67,8 @@ async function checkIfTitleExists(userSearch) {
         let titleResult = {};
         console.log(titleResult);
         
-        result.forEach((username) => {
-            titleResult = username;
+        result.forEach((search) => {
+            titleResult = search;
         });
         
         return titleResult;
@@ -81,9 +79,11 @@ async function checkIfTitleExists(userSearch) {
 // Output from user, to a "i want to watch this movie list".
 async function getMovie(){
     try{
+        
         const movie = await getDocs(collection(db,'movies'));
         displayMovies(movie); 
         removeMovie(movie);
+
     }catch(error){
         console.log(error);
     }
@@ -93,22 +93,17 @@ function displayMovies(movie){
         showMovie.innerText='';
         
         movie.forEach((li)=>{
-            console.log(li.data());
-            const el = `
+        const el = `
             <article id="movieWant">
-            <li id="searchPrint" movie-id="${li.id}">
-            Title: ${li.data().title}<br>
-           Genre: ${li.data().genre}<br>
-            Date release: ${li.data().releaseDate}
-                    <button id="btn" data-id="${li.id}">Watched <i class="fa-solid fa-circle-check"></i></button>
-                </li>
+                <li id="searchPrint" movie-id="${li.id}">
+                Title: ${li.data().title}<br> ||
+                Genre: ${li.data().genre}<br> ||
+                Date release: ${li.data().releaseDate}</li>
             </article>`
             showMovie.insertAdjacentHTML('beforeend', el);
         })
     }
  
-
-
 // Output from user, to a "i have watched this movie list".
 async function showDeletedMovie(){
     const deletedMovies = await getDocs(collection(db, 'watched-movies'))
@@ -116,14 +111,9 @@ async function showDeletedMovie(){
     watchedMovie.innerText='';
     
     deletedMovies.forEach((li)=>{
-        console.log(deletedMovies);
         const deleteD= `
         <article id="watchedMovies">
-            <li movie-id="${li.id}">
-                Title: ${li.data().title}<br></p>
-                Genre: ${li.data().genre}<br></p>
-                Date release: ${li.data().releaseDate}</p>
-            </li>
+            <li movie-id="${li.id}">${li.data().movie}<br></li>
         </article>`
         watchedMovie.insertAdjacentHTML('beforeend', deleteD);
         
@@ -133,7 +123,6 @@ async function showDeletedMovie(){
 // If the title matches a movie in the database, this is the different outcome.
 async function manageTitle(userSearch) {
     const userInput = await checkIfTitleExists(userSearch);
-    console.log(userInput);
     const userTitle = userInput.id;
     const article = document.querySelector('#searchInfo')
     
@@ -156,10 +145,9 @@ async function manageTitle(userSearch) {
         article.innerText='';
         const wrongInput =` 
         <article id="searchInfo">
-            <h1>The movie you searched for could not be found in your favorite list! </h1><br>
+            <h1>The movie you searched for could not be found </h1><br>
         </article><button onClick="window.location.reload()"> GO BACK</button>`
             article.insertAdjacentHTML('beforeend', wrongInput);  
     }
 }
-
 export { showDeletedMovie,removeMovieFromDatabase, getMovie, manageTitle, saveToDatabase, movie}

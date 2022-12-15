@@ -1,5 +1,5 @@
 // In this module i have collected the functions that makes visible differences.
-import { removeMovieFromDatabase, showDeletedMovie, movie} from "./scipt.js"
+import { removeMovieFromDatabase, movie} from "./scipt.js"
 import { btnWatchedMovies, inputGenre, inputReleaseDate, inputTitle} from "./modules/clicks.js"
 
 // This function removes my li, and article visible, and sends the variables to other functions.
@@ -8,9 +8,12 @@ function removeMovie(movie){
     
     movieInfo.forEach((x)=>{
         x.addEventListener('click',  (event)=>{
-            const deletedId = event.currentTarget.getAttribute('movie-id');
-            removeMovieFromDatabase(deletedId, movie);      
+            const deletedId = event.target.getAttribute('movie-id');
+            const movieText = event.target.innerText;
+            console.log(movieText);
+            console.log(deletedId);
             x.style.display = 'none';
+            removeMovieFromDatabase(deletedId, movieText);    
         })
     })
 }

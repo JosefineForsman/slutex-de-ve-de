@@ -15,7 +15,6 @@ const inputReleaseDate = document.querySelector('#release-date');
 function searchClickFunction(){
     searchBtn.addEventListener('click', () =>{
         let userSearch = search.value;
-        console.log(userSearch);
         manageTitle(userSearch);
    
     })
@@ -28,7 +27,15 @@ function addMovie(){
         movie.releaseDate = inputReleaseDate.value;
         saveToDatabase(movie);
         console.log(movie);
+
+        // const sameMovie = query(collection(db, 'movies'), where('title', '==', inputTitle.value));
+        // console.log(inputTitle.value);
+        //     if(sameMovie == sameMovie){
+        //         alert('This movie already exsists! Try with another one.')
+        //     }
+
     })  
+    
 }
 //When the "movies i want to watch" button is pressed, the slider moves back to the correct index again.
 function sliderGetBack(){
