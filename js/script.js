@@ -70,7 +70,6 @@ async function checkIfTitleExists(userSearch) {
         const titleQuery = query(collection(db, 'movies'), where('title', '==', userSearch)); 
         const result = await getDocs(titleQuery);
         let titleResult = {};
-        console.log(titleResult);
         
         result.forEach((search) => {
             titleResult = search;

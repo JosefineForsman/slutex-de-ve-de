@@ -12,8 +12,6 @@ function removeMovie(){
         x.addEventListener('click',  (event)=>{
             const deletedId = event.target.getAttribute('movie-id');
             const movieText = event.target.innerText;
-            console.log(movieText);
-            console.log(deletedId);
             x.style.display = 'none';
             removeMovieFromDatabase(deletedId, movieText);    
         })
