@@ -107,8 +107,8 @@ function displayMovies(movie){
         const el = `
             <article id="movieWant">
                 <li id="searchPrint" movie-id="${li.id}">
-                Title: ${li.data().title} &#x2022; 
-                Genre: ${li.data().genre} &#x2022; 
+                Title: ${li.data().title} &#x2022;
+                Genre: ${li.data().genre} &#x2022;
                 Date release: ${li.data().releaseDate} </li>
             </article>`
 

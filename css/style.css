@@ -126,26 +126,37 @@ button:hover{
     margin-bottom: 2rem;
     align-items: flex-start;
     justify-content: flex-start;
-
+}
+#searchPrint{
+    background: rgb(198,180,122);
+    background: linear-gradient(90deg, rgba(198,180,122,1) 0%, rgba(254,235,195,0.486453956582633) 48%, rgba(198,180,122,1) 100%);
+    color:color;
+    min-width: 16rem;
+    max-width: 20rem;
+    
 }
 #movieWant{
     display: flex;
     align-items: flex-start;
+    min-width: 16rem;
+    max-width: 20rem;
 }
 #listofmovies{
     text-transform: uppercase;
     margin-bottom: 2rem;
     align-items: flex-start;
     justify-content: flex-start;
+    min-width: 16rem;
+    max-width: 20rem;
     
 } 
 #watchedMovies{
     text-transform: uppercase;
-    border-radius: -15px -15px -15px -15px;
     background: rgb(198,180,122);
     background: linear-gradient(90deg, rgba(198,180,122,1) 0%, rgba(254,235,195,0.486453956582633) 48%, rgba(198,180,122,1) 100%);
     color:color;
-    max-width: 15rem;
+    min-width: 16rem;
+    max-width: 20rem;
     
 }
 section{
@@ -164,6 +175,12 @@ li{
     border: dotted 7px;
     border-color: #ffecb3;
     padding: 1rem; 
+    min-width: 16rem;
+    max-width: 20rem;
+    
+}
+li:hover{
+    cursor: pointer;
 }
 main{
     display:flex;
@@ -176,6 +193,10 @@ main{
 div{
     display: flex;
     gap: 1rem;
+}
+p{
+    color: rgba(245, 214, 159, 0.802);
+    font-family: 'Poppins', sans-serif;    
 }
 /* ━━━━━━━━━━| FAVORITE MOVIE SLIDER|━━━━━━━━━━ */
 .sliderShowMovies {
