@@ -16,9 +16,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DE-VE-DE</title>
     <link rel="stylesheet" href="css/style.css" />
-    <script defer type="module" src="js/scipt.js"></script>
+    <script defer type="module" src="js/script.js"></script>
   </head>
   <body>
+    <!--------------------------------| HEADER |----------------------------------->
+
     <figure>
       <header>
         <h1>DE-VE-DE</h1>
@@ -35,6 +37,9 @@
         </button>
       </nav>
     </figure>
+
+    <!-------------------------------| FORM + BUTTONS |-------------------------------->
+
     <main>
       <article id="form">
         <h2>ADD A MOVIE TO YOUR LIST:</h2>
@@ -54,6 +59,8 @@
         </button>
       </div>
 
+      <!--------------------------------| SLIDERS |------------------------------------>
+
       <content class="sliderShowMovies">
         <h2>MOVIES I WANT TO WATCH:</h2>
         <article id="movieWant">
@@ -65,11 +72,13 @@
         <article id="movieWatch">
           <aside id="watchedMovies"></aside>
         </article>
-        <!-- <button onClick="window.location.reload()" class="homePage">
-            Go back
-          </button> -->
       </content>
     </main>
-    <article id="searchInfo"></article>
+
+    <!------------------------------|SEARCH INPUT RESULT|---------------------------->
+
+    <aside id="styleInfo">
+      <article id="searchInfo"></article>
+    </aside>
   </body>
 </html>

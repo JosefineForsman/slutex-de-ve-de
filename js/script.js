@@ -1,7 +1,11 @@
+ // In this module i have everything from firebase and everything that shows the output, 
+ // since I have functions that both retrieve from firebase and print out info at the same time,
+ // I wanted them in the same module.
+
  // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
- import { removeMovie, clearInputFields, hideMain } from "./display.js";
+ import { removeMovie, clearInputFields, hideMain, hideArticle, article } from "./display.js";
  import { searchClickFunction, addMovie, btnWatchedMovies, sliderGetBack, inputTitle } from "./modules/clicks.js";
 
  // TODO: Add SDKs for Firebase products that you want to use
@@ -21,14 +25,15 @@
  const app = initializeApp(firebaseConfig);
  const db = getFirestore(app);
  
- // Variable that changes depending on users-input.
+ // Variable that add a movie from user-input.
  let movie = {
     title: '',
     genre: '',
     releaseDate: ''
  } 
 
- // Different functions. 
+ // Different function calls.. 
+ hideArticle();
  searchClickFunction();
  sliderGetBack(); 
  btnWatchedMovies();
@@ -59,10 +64,10 @@ async function removeMovieFromDatabase(deletedId, movieText){
     }
 }
 
-// If a title is in the data-base 'movies' 
+// Checks if a title in the data-base 'movies' exsists.
 async function checkIfTitleExists(userSearch) {
     try {
-        const titleQuery = query(collection(db, 'watched-movies'), where('title', '==', userSearch)); // gör en likadan om databas 1.
+        const titleQuery = query(collection(db, 'movies'), where('title', '==', userSearch)); 
         const result = await getDocs(titleQuery);
         let titleResult = {};
         console.log(titleResult);
@@ -72,45 +77,52 @@ async function checkIfTitleExists(userSearch) {
         });
         
         return titleResult;
+
     } catch (error) {
         console.log(error);
     }
 }
-// Output from user, to a "i want to watch this movie list".
+
+// Gets the information from database 'movie'.
 async function getMovie(){
     try{
-        
         const movie = await getDocs(collection(db,'movies'));
+
         displayMovies(movie); 
         removeMovie(movie);
 
     }catch(error){
+
         console.log(error);
     }
 }
+
+// Output from user-input, to "favorite" list.
 function displayMovies(movie){
         const showMovie = document.querySelector('#listofmovies');
         showMovie.innerText='';
         
         movie.forEach((li)=>{
+
         const el = `
             <article id="movieWant">
                 <li id="searchPrint" movie-id="${li.id}">
-                Title: ${li.data().title}<br> ||
-                Genre: ${li.data().genre}<br> ||
-                Date release: ${li.data().releaseDate}</li>
+                Title: ${li.data().title} &#x2022; 
+                Genre: ${li.data().genre} &#x2022; 
+                Date release: ${li.data().releaseDate} </li>
             </article>`
+
             showMovie.insertAdjacentHTML('beforeend', el);
         })
     }
  
-// Output from user, to a "i have watched this movie list".
+// Output from 'watched-movies' database to "watched movies" list.
 async function showDeletedMovie(){
-    const deletedMovies = await getDocs(collection(db, 'watched-movies'))
+    const deletedMovie = await getDocs(collection(db, 'watched-movies'))
     const watchedMovie = document.querySelector('#movieWatch');
     watchedMovie.innerText='';
     
-    deletedMovies.forEach((li)=>{
+    deletedMovie.forEach((li)=>{
         const deleteD= `
         <article id="watchedMovies">
             <li movie-id="${li.id}">${li.data().movie}<br></li>
@@ -120,11 +132,10 @@ async function showDeletedMovie(){
     })  
 }
 
-// If the title matches a movie in the database, this is the different outcome.
+// If the title matches a movie in the database, this is the two different outcome.
 async function manageTitle(userSearch) {
     const userInput = await checkIfTitleExists(userSearch);
     const userTitle = userInput.id;
-    const article = document.querySelector('#searchInfo')
     
     if (userTitle) {
         hideMain();
@@ -132,7 +143,7 @@ async function manageTitle(userSearch) {
 
             const input= `
             <article id="searchInfo">
-                <h1>You searched for the movie: " ${userInput.data().title} ", you have already watched this movie. </h1><br>
+                <h1>You searched for the movie: " ${userInput.data().title} ", it's already on your favorite list! </h1><br>
                     Title: ${userInput.data().title}<br>
                     Genre: ${userInput.data().genre}<br>
                     Date release: ${userInput.data().releaseDate}<br>
@@ -143,11 +154,12 @@ async function manageTitle(userSearch) {
     } else {
         hideMain();
         article.innerText='';
-        const wrongInput =` 
+        const wrongInput =`
         <article id="searchInfo">
-            <h1>The movie you searched for could not be found </h1><br>
-        </article><button onClick="window.location.reload()"> GO BACK</button>`
-            article.insertAdjacentHTML('beforeend', wrongInput);  
+            <h1>The movie you searched for could not be found in your favorite list! </h1><br>
+            <button onClick="window.location.reload()"> GO BACK</button>
+        </article>`
+            article.insertAdjacentHTML('beforebegin', wrongInput);  
     }
 }
 export { showDeletedMovie,removeMovieFromDatabase, getMovie, manageTitle, saveToDatabase, movie}

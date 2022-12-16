@@ -28,6 +28,7 @@ body{
     background: rgb(115,5,5);
     background: radial-gradient(circle, rgba(115,5,5,1) 0%, rgba(42,0,0,1) 100%);
     color: black;
+  
 }
 article{
     margin-top: 2rem;
@@ -36,6 +37,18 @@ article{
     justify-content: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
+}
+/* FORM STYLE */
+input::placeholder{
+    font-family:  'Poppins', sans-serif;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+}
+input{
+    width: 10rem;
+    border: none;
+    padding: 10px 20px;
+    background-color: #f0f0f32d;
 }
 #form{
     margin-top: 2rem;
@@ -49,27 +62,15 @@ article{
     border: dotted 12px;
     border-color: #ffecb3;
     box-shadow:
-    inset 0 0 50px #fff,      /* inner white */
-    inset 20px 0 80px rgb(122, 23, 23),   /* inner left magenta short */
-    inset -20px 0 80px rgb(122, 23, 23),  /* inner right cyan short */
-    inset 20px 0 300px rgb(245, 168, 101),  /* inner left magenta broad */
-    inset -20px 0 300px #0ff, /* inner right cyan broad */
-    0 0 50px #fff,            /* outer white */
-    -10px 0 80px rgb(120, 26, 26),        /* outer left magenta */
-    10px 0 80px rgb(80, 11, 11);         /* outer right cyan */
+    inset 0 0 50px #fff,    
+    inset 20px 0 80px rgb(122, 23, 23),  
+    inset -20px 0 80px rgb(122, 23, 23),  
+    inset 20px 0 300px rgb(250, 222, 198),  
+    inset -20px 0 300px rgb(245, 211, 181), 
+    0 0 50px #fff,        
+    -10px 0 80px rgb(120, 26, 26),      
+    10px 0 80px rgb(80, 11, 11);       
     width: 20rem;
-
-}
-input::placeholder{
-    font-family:  'Poppins', sans-serif;
-    font-size: 16px;
-    color: rgb(0, 0, 0);
-}
-input{
-    width: 10rem;
-    border: none;
-    padding: 10px 20px;
-    background-color: #f0f0f32d;
 }
 #release-date{
     width: 10rem;
@@ -78,14 +79,7 @@ input{
     padding: 10px 20px;
     text-transform: uppercase;
 }
-#search{
-    margin-bottom: 2rem;
-    width: 9rem;
-    border:none;
-    font-family: 'Poppins', sans-serif;
-    padding: 10px 18px;
-    position: absolute;
-}
+
 #save-movie{
     width: 11rem;
     border:none;
@@ -138,7 +132,6 @@ button:hover{
     display: flex;
     align-items: flex-start;
 }
-
 #listofmovies{
     text-transform: uppercase;
     margin-bottom: 2rem;
@@ -155,18 +148,6 @@ button:hover{
     max-width: 15rem;
     
 }
-#search-btn{
-    /* position: relative; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10px;
-    height: 40px;
-    padding: 1rem;
-    border-radius: 0; 
-    background-color: #f0f0f32d;
-}
-
 section{
     font-family: 'Poppins', sans-serif;
     margin-top: 3rem;
@@ -191,22 +172,12 @@ main{
     flex-direction: column;
     gap:1rem;
 }
+
 div{
     display: flex;
     gap: 1rem;
 }
-#titleInfo{
-    font-size: 22px;
-}
-
-.fa-eye{
-    color: rgb(255, 255, 255);
-}
-.fa-eye:hover{
-    color: rgb(0, 0, 0);
-}
-
-/* ━━━━━━━━━━| Movies i want to watch |━━━━━━━━━━ */
+/* ━━━━━━━━━━| FAVORITE MOVIE SLIDER|━━━━━━━━━━ */
 .sliderShowMovies {
     position: absolute;
     padding: 3rem;
@@ -236,7 +207,7 @@ div{
     -webkit-text-fill-color: transparent;
   }
  
-  /* ━━━━━━━━━━| Watched movies |━━━━━━━━━━ */
+  /* ━━━━━━━━━━| WATCHED MOVIE SLIDER |━━━━━━━━━━ */
   .sliderShowWatchedMovies {
     position: absolute;
     padding: 3rem;
@@ -265,6 +236,14 @@ div{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  /* SEARCH INPUT STYLING */
+  #styleInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
   #searchInfo {
     text-transform: uppercase;
     color:white;
@@ -273,13 +252,37 @@ div{
     align-content: center;
     flex-direction: column;
     gap:2rem;
-
+    border: dotted 12px;
+    border-color: #ffecb3;
+    box-shadow:
+    inset 0 0 50px #fff,
+    inset 20px 0 80px rgb(122, 23, 23),  
+    inset -20px 0 80px rgb(122, 23, 23), 
+    inset 20px 0 300px rgb(250, 222, 198),  
+    inset -20px 0 300px rgb(245, 211, 181), 
+    0 0 50px #fff,          
+    -10px 0 80px rgb(120, 26, 26),      
+    10px 0 80px rgb(80, 11, 11);        
+    width: 20rem;
+    padding: 3rem;
+    color:black;
   }
-  /* #searchInfo.show{
-    text-transform: uppercase;
-    color:white;
+  #search-btn{
     display: flex;
     justify-content: center;
-    align-content: center;
-    flex-direction: column;
-  } */
+    align-items: center;
+    width: 10px;
+    height: 40px;
+    padding: 1rem;
+    border-radius: 0; 
+    background-color: #f0f0f32d;
+}
+ #search{
+    margin-bottom: 2rem;
+    width: 9rem;
+    border:none;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px 18px;
+    position: absolute;
+}
+  
